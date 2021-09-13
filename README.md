@@ -1,4 +1,4 @@
-#libforest
+# libforest
 
 This is a C library for building P2P applications.
 
@@ -10,3 +10,7 @@ This is a C library for building P2P applications.
 * Signing
 * File transfers
 * Secure Messaging
+* Language Bindings
+  * Julia
+  * Golang
+  * Rust?
