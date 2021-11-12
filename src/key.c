@@ -1,4 +1,5 @@
 #include "stdint.h"
+#include "stdio.h"
 
 #include "forest.h"
 
@@ -24,4 +25,18 @@ int cmpKey64(Key64 a, Key64 b){
 		return -1;
 	}
 	return 0;
+}
+
+
+void printKey32(Key32 k){
+	for(int i = 0; i < 32; i++)
+		printf("%02X ", k.bytes[i]);
+	printf("\n");
+}
+
+
+void printKey64(Key64 k){
+	for(int i = 0; i < 64; i++)
+		printf("%02X ", k.bytes[i]);
+	printf("\n");
 }

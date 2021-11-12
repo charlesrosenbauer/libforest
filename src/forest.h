@@ -18,19 +18,24 @@ typedef struct{
 	uint8_t		bytes[64];
 }Key64;
 
-int cmpKey32(Key32, Key32);
-int cmpKey64(Key64, Key64);
+int  cmpKey32  (Key32, Key32);
+int  cmpKey64  (Key64, Key64);
+void printKey32(Key32);
+void printKey64(Key64);
 
 
 typedef struct{
 	Key32		pubkey, msgkey;
 	uint32_t	ip;
 	uint16_t	port;
+	float		reliability;
+	int			lostPings;
 }Peer;
 
 typedef struct{
 	uint16_t 	port;
-	Key32   	pubkey, seckey;
+	Key32   	pubkey;
+	Key64		seckey;
 	Key32		msgkey, rcvkey;
 	
 	Peer*		peers;
@@ -38,7 +43,7 @@ typedef struct{
 }ForestNode;
 
 
-ForestNode initNode(uint16_t);
+ForestNode initNode(uint16_t, int);
 
 
 

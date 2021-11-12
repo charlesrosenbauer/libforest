@@ -15,7 +15,7 @@ uint64_t rng    (){
 	x = (x * 3751888886129) + 3915789007777;
 	y = (y * 8748720097883) - 9984109184239;
 	
-	// 
+	// Bit rotation adds some fun nonlinearity
 	int rotX   = y % 64;
 	int rotY   = x % 64;
 	x = (x << rotX) | (x >> (64-rotX));
@@ -24,7 +24,7 @@ uint64_t rng    (){
 	x = (y & 0xfff)? x : x ^ 5389173081973;		// Occasionally kick the thing
 	rngStateA = y;
 	rngStateB = x;
-	return x ^ y;
+	return x ^ y;	// Mix two different RNG functions
 }
 
 uint64_t rngSeed(uint64_t x){
