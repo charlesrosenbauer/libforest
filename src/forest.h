@@ -25,6 +25,13 @@ void printKey64(Key64);
 
 
 typedef struct{
+	uint8_t*	bytes;
+	uint32_t	ip;
+	uint16_t	port, size;
+}Packet;
+
+
+typedef struct{
 	Key32		pubkey, msgkey;
 	uint32_t	ip;
 	uint16_t	port;
