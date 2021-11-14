@@ -9,6 +9,18 @@
 #include "forest.h"
 
 
+
+int parsePacket(Packet* p, uint8_t* bytes, int size){
+	
+}
+
+
+int writePacket(Packet* p, uint8_t* bytes){
+
+}
+
+
+
 int sendPacket(ForestNode* n, struct sockaddr_in to, Packet p){
 	
 	char buf[65536];

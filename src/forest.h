@@ -23,6 +23,24 @@ int  cmpKey64  (Key64, Key64);
 void printKey32(Key32);
 void printKey64(Key64);
 
+typedef struct{
+	uint16_t size;
+}DataPacket;
+
+typedef struct{
+	Key32		pubkey;
+	Key32		msgkey;
+	uint32_t	id;
+}ConnectPacket;
+
+typedef struct{
+	Key32		sign;
+}DisconnectPacket;
+
+typedef struct{
+	Key32		pubkey;
+	Key32		msgkey;
+}XchgPacket;
 
 
 typedef enum{
