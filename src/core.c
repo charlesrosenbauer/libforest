@@ -9,6 +9,19 @@
 #include "forest.h"
 
 
+int sendPacket(ForestNode* n, struct sockaddr_in to, Packet p){
+	
+	char buf[65536];
+	int plen = 0;
+	// Serialize packet
+	
+	uint64_t slen = sizeof(to);
+	
+	if(sendto(n->socket, buf, plen, 0, (struct sockaddr*) &to, slen) == -1) return 0;
+	
+	return 1;
+}
+
 
 int nodeServer(ForestNode* n){
 	// Open socket
@@ -19,15 +32,14 @@ int nodeServer(ForestNode* n){
 	memset((char *) &si_me, 0, sizeof(si_me));
 
 	if(bind(s, (struct sockaddr*)&si_me, sizeof(si_me)) == -1) return 0;
+	n->socket = s;
 
 	while(1){
 		// Wait on incoming packets, send any outgoing packets
 		if((recv_len = recvfrom(s, buf, 65536, 0, (struct sockaddr *) &si_other, &slen)) == -1) return 0;
 		
-		// Parse packets, make decision, send any waiting outgoing packets
+		// Parse packets, add to packet queue
 		
-		
-		//if(sendto(s, buf, recv_len, 0, (struct sockaddr*) &si_other, slen) == -1) return 0;
 	}
 	return 1;
 }

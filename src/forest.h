@@ -45,6 +45,8 @@ typedef struct{
 	Key64		seckey;
 	Key32		msgkey, rcvkey;
 	
+	uint32_t	socket;
+	
 	Peer*		peers;
 	int			peerct, peercap;
 }ForestNode;
