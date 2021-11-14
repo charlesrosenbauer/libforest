@@ -24,10 +24,32 @@ void printKey32(Key32);
 void printKey64(Key64);
 
 
+
+typedef enum{
+	PT_DATA			= 0,
+	PT_CONNECT		= 1,
+	PT_DISCONNECT	= 2,
+	PT_XCHG_KEYS	= 3
+}PacketType;
+
+typedef enum{
+	DT_PING			= 0,
+	DT_PONG			= 1,
+	DT_ASSM			= 2,
+	DT_DATA			= 3
+}PacketDataType;
+
+typedef struct{
+	uint8_t*		bytes;
+	uint16_t		size, assm, ix;
+	PacketDataType	type;
+}DataPacket;
+
 typedef struct{
 	uint8_t*	bytes;
 	uint32_t	ip;
 	uint16_t	port, size;
+	PacketType	type;
 }Packet;
 
 
