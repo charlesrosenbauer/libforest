@@ -23,21 +23,34 @@ int  cmpKey64  (Key64, Key64);
 void printKey32(Key32);
 void printKey64(Key64);
 
+typedef enum{
+	DT_PING			= 0,
+	DT_PONG			= 1,
+	DT_ASSM			= 2,
+	DT_DATA			= 3
+}PacketDataType;
+
 typedef struct{
-	uint16_t size;
+	uint8_t			magic;
+	uint16_t		size, assm, ix;
+	PacketDataType	type;
+	uint8_t*		bytes;
 }DataPacket;
 
 typedef struct{
+	uint8_t		magic;
 	Key32		pubkey;
 	Key32		msgkey;
 	uint32_t	id;
 }ConnectPacket;
 
 typedef struct{
+	uint8_t		magic;
 	Key32		sign;
 }DisconnectPacket;
 
 typedef struct{
+	uint8_t		magic;
 	Key32		pubkey;
 	Key32		msgkey;
 }XchgPacket;
@@ -50,24 +63,16 @@ typedef enum{
 	PT_XCHG_KEYS	= 3
 }PacketType;
 
-typedef enum{
-	DT_PING			= 0,
-	DT_PONG			= 1,
-	DT_ASSM			= 2,
-	DT_DATA			= 3
-}PacketDataType;
-
 typedef struct{
-	uint8_t*		bytes;
-	uint16_t		size, assm, ix;
-	PacketDataType	type;
-}DataPacket;
-
-typedef struct{
-	uint8_t*	bytes;
 	uint32_t	ip;
 	uint16_t	port, size;
 	PacketType	type;
+	union{
+		DataPacket			data;
+		ConnectPacket		conn;
+		DisconnectPacket	dcon;
+		XchgPacket			xchg;
+	};
 }Packet;
 
 

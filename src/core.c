@@ -11,12 +11,39 @@
 
 
 int parsePacket(Packet* p, uint8_t* bytes, int size){
+	if(size < 32) return 0;
 	
+	switch(bytes[0]){
+		case PT_DATA : {
+			/*
+				Data packets are, by default, encrypted.
+				Parts of the header may be plaintext, 
+			*/
+		}break;
+		
+		case PT_CONNECT : {
+			if(size != sizeof(ConnectPacket   )) return 0;
+			p->conn = *(ConnectPacket   *)bytes;
+		}break;
+		
+		case PT_DISCONNECT : {
+			if(size != sizeof(DisconnectPacket)) return 0;
+			p->dcon = *(DisconnectPacket*)bytes;
+		}break;
+		
+		case PT_XCHG_KEYS : {
+			if(size != sizeof(XchgPacket      )) return 0;
+			p->xchg = *(XchgPacket      *)bytes;
+		}break;
+	}
+	
+	return 1;
 }
 
 
 int writePacket(Packet* p, uint8_t* bytes){
 
+	return 1;
 }
 
 
@@ -64,10 +91,10 @@ int nodeServer(ForestNode* n){
 ForestNode initNode(uint16_t port, int peercap){
 	ForestNode ret;
 	
-	printf("%i\n", crypto_sign_PUBLICKEYBYTES);
-	printf("%i\n", crypto_sign_SECRETKEYBYTES);
-	printf("%i\n", crypto_box_PUBLICKEYBYTES);
-	printf("%i\n", crypto_box_SECRETKEYBYTES);
+	//printf("%i\n", crypto_sign_PUBLICKEYBYTES);
+	//printf("%i\n", crypto_sign_SECRETKEYBYTES);
+	//printf("%i\n", crypto_box_PUBLICKEYBYTES);
+	//printf("%i\n", crypto_box_SECRETKEYBYTES);
 	
 	crypto_box_keypair (ret.msgkey.bytes, ret.rcvkey.bytes);
 	crypto_sign_keypair(ret.pubkey.bytes, ret.seckey.bytes);
